@@ -1,0 +1,14 @@
+<header class="app-header">
+  <nav class="nav">
+    <div class="logo">{{ dashboard.title() }}  - Signal Playground</div>
+
+    <ul class="menu">
+      <li><a routerLink="/dashboard">Dashboard</a></li>
+      <li><a routerLink="/readme">Readme</a></li>
+    </ul>
+
+    <div class="clock">
+      {{ clock.date }}, 🕒 {{ clock.time }}
+    </div>
+  </nav>
+</header>

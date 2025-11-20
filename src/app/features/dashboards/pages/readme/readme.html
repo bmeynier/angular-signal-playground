@@ -1,0 +1,75 @@
+<div class="readme">
+  <h1>Angular Signal Playground – Schéma conceptuel</h1>
+
+  <p>
+    Voici une vue d’ensemble du projet. On y voit comment les différents composants, signaux et services interagissent.
+  </p>
+
+  <pre class="diagram">
+        ┌────────────────────────┐
+        │  HeaderComponent        │
+        │  -------------------   │
+        │  Affiche title          │
+        │  Affiche horloge        │
+        └─────────┬──────────────┘
+                  │
+                  ▼
+        ┌────────────────────────┐
+        │  DashboardComponent     │
+        │  -------------------   │
+        │  - Formulaire ajout     │
+        │    de tâches            │
+        │  - Liste des tâches     │
+        │  - Graphique Chart.js   │
+        └─────────┬──────────────┘
+                  │
+                  ▼
+        ┌────────────────────────┐
+        │ DashboardService        │
+        │  -------------------   │
+        │  - tasks (signal)      │
+        │  - filter (signal)     │
+        │  - isAdmin (signal)    │
+        │  - title (signal)      │
+        │  - filteredTasks        │
+        │    (computed)          │
+        │  - effects:            │
+        │      - logTasks        │
+        │      - saveTasks       │
+        │      - updateTitle     │
+        │      - sendStats       │
+        └─────────┬──────────────┘
+                  │
+                  ▼
+        ┌────────────────────────┐
+        │ ClockService            │
+        │  -------------------   │
+        │  - now (signal)        │
+        │  - date, time getters  │
+        └────────────────────────┘
+  </pre>
+
+  <h2>Comment lire ce schéma</h2>
+  <ul>
+    <li><strong>HeaderComponent</strong> → Affiche le titre en temps réel et l’horloge via ClockService.</li>
+    <li><strong>DashboardComponent</strong> → Formulaire, liste filtrée, graphique Chart.js, simulation de tâches.</li>
+    <li><strong>DashboardService</strong> → Contient toutes les données et la logique métier :
+      <ul>
+        <li><strong>tasks</strong> = signal qui contient la liste des tâches</li>
+        <li><strong>filteredTasks</strong> = computed qui filtre les tâches selon <code>filter</code></li>
+        <li><strong>title</strong> = signal du titre affiché dans le header</li>
+        <li><strong>effects</strong> = log des tâches, sauvegarde localStorage, mise à jour du titre, envoi de stats</li>
+      </ul>
+    </li>
+    <li><strong>ClockService</strong> → Signal <code>now</code> mis à jour chaque seconde pour l’horloge</li>
+  </ul>
+
+  <h2>Astuce pour se souvenir</h2>
+  <ul>
+    <li><strong>Signal</strong> = boîte magique qui prévient Angular quand ça change</li>
+    <li><strong>Computed</strong> = règle magique recalculée automatiquement</li>
+    <li><strong>Effect</strong> = observateur automatique qui réagit aux changements</li>
+    <li><strong>Template</strong> = LEGO : Angular assemble tout automatiquement</li>
+    <li><strong>OnPush</strong> = Angular ne regarde que les boîtes qui changent</li>
+  </ul>
+</div>

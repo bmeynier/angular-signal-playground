@@ -1,0 +1,39 @@
+
+<div class="dashboard">
+
+  <!-- Mode -->
+  <div class="mode">
+    <strong>Mode :</strong> {{ dashboard.isAdmin() ? 'Admin' : 'User' }}
+  </div>
+
+  <!-- Carte Formulaire -->
+  <div class="task-form">
+    <h3>Ajouter une tâche</h3>
+    <form [formGroup]="taskForm" (ngSubmit)="addTask()">
+      <input type="text" formControlName="name" placeholder="Nouvelle tâche">
+      <button type="submit" [disabled]="taskForm.invalid">Ajouter</button>
+    </form>
+  </div>
+
+  <!-- Carte Liste -->
+  <div class="task-list">
+    <h3>Liste des tâches</h3>
+    <input type="text" placeholder="Filtrer les tâches..." [ngModel]="dashboard.filter()" (ngModelChange)="dashboard.filter.set($event)" />
+
+    <ul>
+      <li *ngFor="let task of dashboard.filteredTasks()">
+        {{ task.name }} - {{ task.timestamp | date:'mediumTime' }}
+        <button *ngIf="dashboard.isAdmin()" (click)="removeTask(dashboard.filteredTasks().indexOf(task))">
+          Supprimer
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Carte Graphique -->
+  <div class="chart-container">
+    <h3>Graphique des tâches</h3>
+    <canvas id="tasksChart"></canvas>
+  </div>
+
+</div>
